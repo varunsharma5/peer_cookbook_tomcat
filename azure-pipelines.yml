@@ -1,0 +1,52 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger:
+  # - main
+  - feature/*
+pool:
+    vmImage: ubuntu-latest
+
+steps:
+
+- script: |
+    echo Build.Repository.LocalPath : $(Build.Repository.LocalPath)
+    echo Build.SourcesDirectory: $(Build.SourcesDirectory)
+    echo Build.Repository.LocalPath content : 
+    ls -lrt $(Build.Repository.LocalPath)/
+    echo Build.SourcesDirectory content : 
+    ls -lrt $(Build.SourcesDirectory)/
+    echo Current Direcroty:
+    pwd
+    echo 'Current OS Details:'
+    cat /etc/os-release
+  displayName: 'Print predefined variables'
+
+- task: chef-software.chef-azdo.install.component@3
+  inputs:
+    component: 'chef-workstation'
+    sudo: true
+    version: '21.7.524'
+  displayName: 'Installing chef workstation'
+  
+- script: 
+    chef -v
+  displayName: 'Verify chef workstation installtion and version'
+
+- script: 
+    docker --version
+  displayName: 'Verify docker installtion and version'
+- task: chef-software.chef-azdo.execute.component@3
+  inputs:
+    component: 'chef'
+    arguments: 'env --chef-license accept'
+  displayName: 'Setting chef license accept env setting'
+
+- script: cookstyle
+  displayName: 'Cookbook Lint check'
+- task: chef-software.chef-azdo.execute.component@3
+  inputs:
+    component: 'kitchen'
+    arguments: 'test -c -d always'
+  displayName: 'Running kitchen'
