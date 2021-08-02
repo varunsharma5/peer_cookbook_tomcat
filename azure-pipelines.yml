@@ -78,11 +78,11 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    Contents: '*.lock.json'
+    Contents: '*.*'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'poilcyfile'
+    ArtifactName: 'cookbook'
     publishLocation: 'Container'
   displayName: 'Publish pipeline artifcat'
