@@ -76,7 +76,7 @@ steps:
 - script: chef install tomcat_policy.rb
   displayName: 'Generate Policy lock file'
 
-- script: tar -czf cookbook.tgz *.*
+- script: tar czf cookbook.tgz $(find . -name '*.*')
   displayName: 'Create cookbook archive'
 - task: CopyFiles@2
   inputs:
