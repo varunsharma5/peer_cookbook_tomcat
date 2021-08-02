@@ -80,7 +80,7 @@ steps:
   displayName: 'Create cookbook archive'
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '/tmp/'
+    SourceFolder: '$(Agent.TempDirectory)'
     Contents: 'cookbook.tgz'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
