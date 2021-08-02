@@ -61,6 +61,7 @@ steps:
       exit 1
     fi
   displayName: 'Cookbook version check' 
+
 # Link check
 - script: cookstyle
   displayName: 'Cookbook Lint check'
@@ -71,3 +72,17 @@ steps:
     component: 'kitchen'
     arguments: 'test -c -d always'
   displayName: 'Running kitchen'
+
+- script: chef install tomcat_policy.rb
+  displayName: 'Generate Policy lock file'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '*.lock.json'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'poilcyfile'
+    publishLocation: 'Container'
+  displayName: 'Publish pipeline artifcat'
