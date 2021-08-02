@@ -45,22 +45,22 @@ steps:
   
 # Cookbook validation
 # Version check
-- bash: |
-    # Define a function that returns true if cookbook version passed as argument 1
-    # is greater than or equal to the cookbook version passed as argument 2
-    semver_gte() {
-      [ "$1" == "$( echo -e "$1\n$2" | sort -rV | head -n1 )" ]
-    }
-    # Grab the version strings from the main and current branches
-    main_version=$( git show origin/main:metadata.rb | grep "^version" | tr '"' "'" | cut -f2 -d\' )
-    branch_version=$( grep "^version" metadata.rb | tr '"' "'" | cut -f2 -d\' )
-    echo 'Feature branch cookbook version:' $branch_version
-    echo 'Main branch cookbook version:' $main_version
-    if semver_gte "$main_version" "$branch_version"; then
-      echo 'ERROR: Cookbook version must be greater than the version in the main branch'
-      exit 1
-    fi
-  displayName: 'Cookbook version check' 
+# - bash: |
+#     # Define a function that returns true if cookbook version passed as argument 1
+#     # is greater than or equal to the cookbook version passed as argument 2
+#     semver_gte() {
+#       [ "$1" == "$( echo -e "$1\n$2" | sort -rV | head -n1 )" ]
+#     }
+#     # Grab the version strings from the main and current branches
+#     main_version=$( git show origin/main:metadata.rb | grep "^version" | tr '"' "'" | cut -f2 -d\' )
+#     branch_version=$( grep "^version" metadata.rb | tr '"' "'" | cut -f2 -d\' )
+#     echo 'Feature branch cookbook version:' $branch_version
+#     echo 'Main branch cookbook version:' $main_version
+#     if semver_gte "$main_version" "$branch_version"; then
+#       echo 'ERROR: Cookbook version must be greater than the version in the main branch'
+#       exit 1
+#     fi
+#   displayName: 'Cookbook version check' 
 
 # Link check
 - script: cookstyle
