@@ -17,6 +17,7 @@ user 'tomcat' do
 end
 
 # tomcat_package = Chef::Config[:file_cache_path] + '/tomcat.tar.gz'
+
 tomcat_package = '/tmp/tomcat.tar.gz'
 # Download the Tomcat Binary
 remote_file tomcat_package do
@@ -25,12 +26,14 @@ remote_file tomcat_package do
 end
 
 # Extract the Tomcat Binary
+# TODO: version check and make it idempotent
 execute 'extract_tomcat' do
   command 'sudo tar xvf tomcat.tar.gz -C /opt/tomcat --strip-components=1'
   cwd '/tmp'
 end
 
 # Update the Permissions
+# TODO: change to group and chmod resource
 execute 'update_permission' do
   cwd '/opt/tomcat'
   command 'sudo chgrp -R tomcat /opt/tomcat'

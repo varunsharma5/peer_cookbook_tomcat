@@ -33,5 +33,6 @@ suites:
       - recipe[tomcat::default]
     verifier:
       inspec_tests:
-        - test/integration/default
+        #- test/integration/default
+        - https://github.com/varunsharma5/peer_inspec_web_server.git
     attributes:
