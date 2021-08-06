@@ -3,7 +3,7 @@ maintainer 'Varun Sharma'
 maintainer_email 'varunge@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures tomcat'
-version '0.1.2'
+version '0.1.3'
 chef_version '>= 15.0'
 # Testing cookbook version check...
 # The `issues_url` points to the location where issues for this cookbook are
