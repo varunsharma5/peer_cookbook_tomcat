@@ -1,7 +1,7 @@
 
 trigger: none
 pr:
-- releases/*
+- main
 
 pool:
     vmImage: ubuntu-latest
