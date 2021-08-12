@@ -17,8 +17,8 @@ user 'tomcat' do
 end
 
 # tomcat_package = Chef::Config[:file_cache_path] + '/tomcat.tar.gz'
-
-tomcat_package = '/tmp/tomcat.tar.gz'
+# tomcat_tar_ball = "tomcat-#{node[tomcat][version]}"
+tomcat_package = "/tmp/tomcat-#{node['tomcat']['version']}.tar.gz"
 # Download the Tomcat Binary
 remote_file tomcat_package do
   source node['tomcat']['download_url']
@@ -28,7 +28,7 @@ end
 # Extract the Tomcat Binary
 # TODO: version check and make it idempotent
 execute 'extract_tomcat' do
-  command 'sudo tar xvf tomcat.tar.gz -C /opt/tomcat --strip-components=1'
+  command "sudo tar xvf #{tomcat_package} -C /opt/tomcat --strip-components=1"
   cwd '/tmp'
 end
 
