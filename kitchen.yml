@@ -13,15 +13,6 @@ verifier:
   name: inspec
 
 platforms:
-  # @see https://github.com/chef-cookbooks/testing_examples/blob/master/kitchen.dokken.yml
-  # @see https://hub.docker.com/u/dokken
-  # - name: ubuntu-20.04
-  #   driver:
-  #     image: dokken/ubuntu-20.04
-  #     pid_one_command: /bin/systemd
-  #     intermediate_instructions:
-  #       - RUN /usr/bin/apt-get update
-
   - name: centos-7
     driver:
       image: dokken/centos-7
@@ -33,6 +24,5 @@ suites:
       - recipe[tomcat::default]
     verifier:
       inspec_tests:
-        #- test/integration/default
         - https://github.com/varunsharma5/peer_inspec_web_server.git
     attributes:
