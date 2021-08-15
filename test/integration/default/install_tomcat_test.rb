@@ -4,7 +4,7 @@
 # found at https://docs.chef.io/inspec/resources/
 
 describe command('curl http://localhost:8080') do
-  its('stdout') { should match(%r{Apache Tomcat/8.5.69}) }
+  its('stdout') { should match(%r{Apache Tomcat}) }
 end
 
 describe port(8080) do
