@@ -60,7 +60,7 @@ steps:
     fi
   displayName: 'Cookbook version check' 
 
-# Link check
+# Lint check
 - script: cookstyle
   displayName: 'Cookbook Lint check'
 
